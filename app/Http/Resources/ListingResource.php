@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Resources;
+
+use App\Support\ListingResourceResolver;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ListingResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'price' => $this->price,
+            'location' => $this->location,
+            'type' => $this->type,
+            'date' => $this->created_at,
+            'user' => UserResource::make($this->user),
+            'listable' => $this->whenLoaded('listable', fn() => ListingResourceResolver::resolve($this->type, $this->listable)),
+            'images' => ImageResource::collection($this->whenLoaded('images')),
+        ];
+    }
+}
