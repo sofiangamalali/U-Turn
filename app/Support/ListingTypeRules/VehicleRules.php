@@ -23,7 +23,7 @@ class VehicleRules
             'vehicle.interior_color' => 'required|in:black,white,silver,gray,blue,red,green,brown,beige,gold,orange,purple,yellow,maroon,other',
             'vehicle.doors' => 'required|integer|min:2|max:6',
             'vehicle.seating_capacity' => 'nullable|integer',
-            'vehicle.horsepower' => 'required|integer',
+            'vehicle.horsepower' => 'nullable|integer',
             'vehicle.steering_side' => 'required|in:left-hand,right-hand',
         ];
     }
