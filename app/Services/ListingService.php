@@ -86,7 +86,9 @@ class ListingService
 
             $filteredData = collect($data)->except([...ListingType::values(), 'images'])->all();
 
-            $listing = Listing::create(array_merge($filteredData, $listableData));
+            $listing = Listing::create(array_merge($filteredData, $listableData ,[
+                'user_id' => auth()->id(),
+            ]));
 
             $listing->uploadImages($data['images']);
 

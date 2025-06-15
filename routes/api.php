@@ -6,7 +6,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::apiResource('listings', ListingController::class);
 Route::get('/home', [GeneralController::class, 'home']);
 Route::get('/transmission-types', [GeneralController::class, 'transmissionTypes']);
 Route::get('/fuel-types', [GeneralController::class, 'fuelTypes']);
@@ -20,14 +19,17 @@ Route::get('/spare-part-categories', [GeneralController::class, 'sparePartCatego
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('listings', [ListingController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('listings', ListingController::class)->except(['index']);
     Route::get('/user/listings', [UserController::class, 'listings']);
+    Route::get('/user/profile', [UserController::class, 'getProfile']);
+    Route::put('/user/profile', [UserController::class, 'updateProfile']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 
-// Test Github Actions
 
 
 

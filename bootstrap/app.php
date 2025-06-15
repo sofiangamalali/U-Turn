@@ -5,7 +5,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-
+use Illuminate\Http\Request;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         api: __DIR__ . '/../routes/api.php',
@@ -18,15 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (AuthenticationException $e, Request $request) {
-            if (in_array('sanctum', $e->guards()))
-                return response()->json([
-                    'error' => 'Unauthenticated',
-                    'message' => 'Token is invalid or missing.',
-                ]);
-
-            return null;
-        });
         $exceptions->render(function (Throwable $e) {
             return ApiExceptionHandler::handle($e);
         });

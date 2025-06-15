@@ -14,4 +14,16 @@ class UserService
             ->latest()
             ->get();
     }
+
+
+    public function getProfile()
+    {
+        return User::find(auth()->id());
+    }
+    public function updateProfile($data)
+    {
+        $user = User::find(auth()->id());
+        $user->update($data);
+        return $user;
+    }
 }

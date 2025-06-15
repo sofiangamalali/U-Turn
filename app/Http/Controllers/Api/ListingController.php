@@ -9,11 +9,13 @@ use App\Http\Resources\ListingResource;
 use App\Models\Listing;
 use App\Services\ListingService;
 use App\Traits\HasApiResponse;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {
     use HasApiResponse;
+    use AuthorizesRequests;
     public function __construct(protected ListingService $listingService)
     {
         $this->listingService = $listingService;
@@ -39,13 +41,15 @@ class ListingController extends Controller
     }
 
     public function update(UpdateListingRequest $request, Listing $listing)
-    {
+    {   
+        $this->authorize('update', Listing::class);
         $listing = $this->listingService->update($listing, $request->validated());
         return $this->success(new ListingResource($listing));
     }
 
     public function destroy(Listing $listing)
     {
+        $this->authorize('delete', $listing);
         $this->listingService->delete($listing);
         return response()->json(['message' => 'Listing deleted']);
     }
