@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Image;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
@@ -70,5 +71,10 @@ trait HasImages
     {
         $this->deleteImages($folder);
         $this->uploadImages($files, $folder);
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

@@ -26,4 +26,11 @@ class UserService
         $user->update($data);
         return $user;
     }
+
+    public function deleteAccount()
+    {
+        $user = User::find(auth()->id());
+        $user->listings()->delete();
+        $user->delete();
+    }
 }

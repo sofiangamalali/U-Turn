@@ -12,7 +12,6 @@ class StoreListingRequest extends FormRequest
     public function rules(): array
     {
         return array_merge([
-            'user_id' => 'required|exists:users,id',
             'type' => ['required', Rule::in(ListingType::values())],
             'title' => 'required|string|max:255',
             'description' => 'required|string',

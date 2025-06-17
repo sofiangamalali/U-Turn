@@ -32,4 +32,10 @@ class UserController extends Controller
         $user = $this->userService->updateProfile($request->validated());
         return $this->success(UserResource::make($user), 'Profile updated successfully.');
     }
+
+    public function deleteAccount(){
+
+        $this->userService->deleteAccount();
+        return $this->success([], 'Account deleted successfully.');
+    }
 }

@@ -49,7 +49,7 @@ class ApiExceptionHandler
         if ($e instanceof AuthenticationException) {
             return response()->json([
                 'status' => false,
-                'message' => 'Unauthenticated',
+                'message' => $e->getMessage() ?? 'Unauthenticated',
             ], 401);
         }
         if ($e instanceof AccessDeniedHttpException) {

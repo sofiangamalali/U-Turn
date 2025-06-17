@@ -4,16 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasImages;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Listing extends Model
 {
-    use HasImages;
+    use HasImages,SoftDeletes;
+
     protected $guarded = [];
 
-    public function images()
-    {
-        return $this->morphMany(Image::class, 'imageable');
-    }
 
     public function user()
     {

@@ -27,8 +27,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/profile', [UserController::class, 'getProfile']);
     Route::put('/user/profile', [UserController::class, 'updateProfile']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::delete('/user/delete-account', [UserController::class, 'deleteAccount']);
 });
-// Test Github Actions
+
 
 
 
