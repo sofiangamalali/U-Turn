@@ -31,9 +31,9 @@ class AuthService
         ];
     }
 
-    public function logout($request)
+    public function logout()
     {
-        $request->user()->currentAccessToken()->delete();
+        request()->user()->currentAccessToken()->delete();
     }
 
 }
