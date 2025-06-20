@@ -22,10 +22,33 @@ class AuthService
 
     public function login($request)
     {
-        $user = User::where('email', $request->email)->first();
+        $identifier = $request->identifier;
+
+        $user = User::where(function ($query) use ($identifier) {
+            $query->where('email', $identifier)
+                ->orWhere('phone', $identifier);
+        })->first();
+
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw new AuthenticationException('Invalid credentials');
         }
+
+        return [
+            'token' => $user->createToken('api-token')->plainTextToken
+        ];
+    }
+
+
+    public function socialLogin($request)
+    {
+        $user = User::updateOrCreate(
+            ['email' => $request->email],
+            [
+                'name' => $request->name,
+                'provider' => $request->provider,
+                'provider_id' => $request->provider_id
+            ]
+        );
         return [
             'token' => $user->createToken('api-token')->plainTextToken
         ];

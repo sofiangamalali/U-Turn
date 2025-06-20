@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use DB;
 
 class UserService
 {
@@ -25,6 +26,25 @@ class UserService
         $user = User::find(auth()->id());
         $user->update($data);
         return $user;
+    }
+
+    public function uploadProfileImage($file)
+    {
+        DB::beginTransaction();
+        try {
+            $user = User::find(auth()->id());
+
+            $user->deleteImages('users');
+
+            $user->uploadImage($file, 'users');
+
+            $image = $user->images()->latest()->first();
+            DB::commit();
+            return $image;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
     }
 
     public function deleteAccount()

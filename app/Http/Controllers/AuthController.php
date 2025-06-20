@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\SocialLoginRequest;
 use App\Services\AuthService;
 use App\Traits\HasApiResponse;
 class AuthController extends Controller
@@ -22,6 +23,10 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         return $this->success($this->authService->login($request), 'User logged in successfully');
+    }
+    public function socialLogin(SocialLoginRequest $request)
+    {
+        return $this->success($this->authService->socialLogin($request), 'User logged in successfully');
     }
     public function logout()
     {

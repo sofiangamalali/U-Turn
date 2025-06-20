@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasImages;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
-    use HasFactory, HasApiTokens, Notifiable;
+    use HasFactory, HasApiTokens, Notifiable, HasImages;
 
     /**
      * The attributes that are mass assignable.
@@ -17,6 +18,9 @@ class User extends Authenticatable
      */
     protected $guarded = [
 
+    ];
+    protected $with = [
+        'images',
     ];
 
     /**

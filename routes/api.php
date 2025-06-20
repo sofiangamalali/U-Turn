@@ -19,6 +19,7 @@ Route::get('/spare-part-categories', [GeneralController::class, 'sparePartCatego
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login/social', [AuthController::class, 'socialLogin']);
 Route::get('listings', [ListingController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -26,12 +27,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/listings', [UserController::class, 'listings']);
     Route::get('/user/profile', [UserController::class, 'getProfile']);
     Route::put('/user/profile', [UserController::class, 'updateProfile']);
+    Route::post('/user/profile/image', [UserController::class, 'updateProfileImage']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::delete('/user/delete-account', [UserController::class, 'deleteAccount']);
 });
-
-
-
 
 
 

@@ -73,7 +73,7 @@ class ListingService
     }
     public function findById($id)
     {
-        return Listing::with(['user', 'listable'])->findOrFail($id);
+        return Listing::with(['user', 'listable' , 'images'])->findOrFail($id);
     }
 
     public function create(array $data)
