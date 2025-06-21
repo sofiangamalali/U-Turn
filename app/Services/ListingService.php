@@ -68,12 +68,18 @@ class ListingService
         if ($request->filled('location')) {
             $query->where('location', 'like', '%' . $request->location . '%');
         }
+        if ($request->filled('keyword')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->keyword . '%')
+                    ->orWhere('description', 'like', '%' . $request->keyword . '%');
+            });
+        }
 
         return $query->paginate($perPage)->appends($request->query());
     }
     public function findById($id)
     {
-        return Listing::with(['user', 'listable' , 'images'])->findOrFail($id);
+        return Listing::with(['user', 'listable', 'images'])->findOrFail($id);
     }
 
     public function create(array $data)
@@ -86,7 +92,7 @@ class ListingService
 
             $filteredData = collect($data)->except([...ListingType::values(), 'images'])->all();
 
-            $listing = Listing::create(array_merge($filteredData, $listableData ,[
+            $listing = Listing::create(array_merge($filteredData, $listableData, [
                 'user_id' => auth()->id(),
             ]));
 

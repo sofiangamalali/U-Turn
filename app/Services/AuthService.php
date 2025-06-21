@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\UserRegistered;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Hash;
@@ -15,6 +16,7 @@ class AuthService
         $data = $request->validated();
         $data['password'] = Hash::make($request->password);
         $user = User::create($data);
+        event(new UserRegistered($user));
         return [
             'token' => $user->createToken('api-token')->plainTextToken
         ];
@@ -41,18 +43,30 @@ class AuthService
 
     public function socialLogin($request)
     {
-        $user = User::updateOrCreate(
-            ['email' => $request->email],
-            [
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            // المستخدم جديد – نسجله ونفعل الحدث
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'provider' => $request->provider,
+                'provider_id' => $request->provider_id,
+            ]);
+            event(new UserRegistered($user));
+        } else {
+            $user->update([
                 'name' => $request->name,
                 'provider' => $request->provider,
-                'provider_id' => $request->provider_id
-            ]
-        );
+                'provider_id' => $request->provider_id,
+            ]);
+        }
+
         return [
             'token' => $user->createToken('api-token')->plainTextToken
         ];
     }
+
 
     public function logout()
     {

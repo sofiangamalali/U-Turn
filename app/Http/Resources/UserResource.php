@@ -22,6 +22,7 @@ class UserResource extends JsonResource
             'image' => ImageResource::make($this->whenLoaded('images', function () {
                 return $this->images->first();
             })),
+            'subscription' => SubscriptionResource::make($this->whenLoaded('activeSubscription')),
 
         ];
     }

@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', ['individual', 'subscription']);
+            $table->enum('type', ['pay_per_ad', 'subscription']);
             $table->boolean('is_active')->default(true);
             $table->softDeletes();
             $table->timestamps();

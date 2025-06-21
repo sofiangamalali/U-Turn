@@ -2,6 +2,7 @@
 use App\Http\Controllers\Api\ListingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,7 @@ Route::get('/car-makes', [GeneralController::class, 'carMakes']);
 Route::get('/conditions', [GeneralController::class, 'conditions']);
 Route::get('/spare-part-categories', [GeneralController::class, 'sparePartCategories']);
 Route::get('/seller/profile/{id}', [UserController::class, 'getSellerProfile']);
-
+Route::get('/packages', [PackageController::class, 'getAll']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

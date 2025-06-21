@@ -10,15 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('package_features', function (Blueprint $table) {
+        Schema::create('per_ad_features', function (Blueprint $table) {
             $table->id();
             $table->foreignId('package_id')->constrained()->onDelete('cascade');
-            $table->string('key')->unique();
             $table->string('label');
             $table->decimal('price', 8, 2)->default(0);
             $table->integer('duration_days')->nullable();
             $table->boolean('is_free')->default(false);
             $table->integer('order')->default(0);
+            $table->enum('level', ['basic', 'highlight', 'top', 'premium'])->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('package_features');
+        Schema::dropIfExists('per_ad_features');
     }
 };

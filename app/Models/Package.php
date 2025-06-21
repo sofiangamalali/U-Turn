@@ -15,26 +15,15 @@ class Package extends Model
         'is_active',
     ];
 
-    public function features()
+    public function perAdFeatures()
     {
-        return $this->hasMany(PackageFeature::class);
+        return $this->hasMany(PerAdFeature::class);
     }
 
-    public function subscriptions()
+    public function subscriptionFeatures()
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(SubscriptionFeature::class);
     }
 
-    public function users()
-    {
-        return $this->hasManyThrough(
-            User::class,
-            Subscription::class,
-            'package_id',    // Foreign key on subscriptions table
-            'id',            // Foreign key on users table
-            'id',            // Local key on packages table
-            'user_id'        // Local key on subscriptions table
-        );
-    }
 
 }

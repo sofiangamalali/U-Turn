@@ -23,7 +23,7 @@ class UserService
 
     public function getProfile()
     {
-        return User::find(auth()->id());
+        return User::with('activeSubscription.package')->find(auth()->id());
     }
     public function updateProfile($data)
     {
