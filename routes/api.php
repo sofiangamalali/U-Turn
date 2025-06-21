@@ -14,7 +14,7 @@ Route::get('/steering-sides', [GeneralController::class, 'steeringSides']);
 Route::get('/car-makes', [GeneralController::class, 'carMakes']);
 Route::get('/conditions', [GeneralController::class, 'conditions']);
 Route::get('/spare-part-categories', [GeneralController::class, 'sparePartCategories']);
-
+Route::get('/seller/profile/{id}', [UserController::class, 'getSellerProfile']);
 
 
 Route::post('/register', [AuthController::class, 'register']);

@@ -15,7 +15,11 @@ class UserService
             ->latest()
             ->get();
     }
-
+    public function getSellerProfile($id)
+    {
+        return User::with(['listings.images', 'listings.listable'])
+            ->findOrFail($id);
+    }
 
     public function getProfile()
     {

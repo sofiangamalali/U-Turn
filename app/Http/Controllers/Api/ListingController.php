@@ -37,11 +37,11 @@ class ListingController extends Controller
     {
         $listing = $this->listingService->findById($id);
 
-        return new ListingResource($listing);
+        return $this->success(new ListingResource($listing));
     }
 
     public function update(UpdateListingRequest $request, Listing $listing)
-    {   
+    {
         $this->authorize('update', Listing::class);
         $listing = $this->listingService->update($listing, $request->validated());
         return $this->success(new ListingResource($listing));
