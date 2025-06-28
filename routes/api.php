@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Api\ListingController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\PackageController;
@@ -31,7 +32,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/user/profile/image', [UserController::class, 'updateProfileImage']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::delete('/user/delete-account', [UserController::class, 'deleteAccount']);
+
+    //CHATS
+    Route::get('/chats', [ChatController::class, 'index']);
+    Route::get('/chats/{chat}', [ChatController::class, 'show']);
+    Route::post('/chats/messages', [ChatController::class, 'sendMessage']);
+
+
 });
+Route::get('/chats/stream', [ChatController::class, 'streamChats']);
+Route::get('/chats/stream/{chat}', [ChatController::class, 'streamChatMessages']);
 
 
 

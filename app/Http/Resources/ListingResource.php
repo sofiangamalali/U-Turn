@@ -23,8 +23,9 @@ class ListingResource extends JsonResource
             'location' => $this->location,
             'type' => $this->type,
             'date' => $this->created_at,
-            'user' => UserResource::make($this->user),
+            'user' => UserResource::make($this->whenLoaded('user')),
             'listable' => $this->whenLoaded('listable', fn() => ListingResourceResolver::resolve($this->type, $this->listable)),
+            'first_image' => ImageResource::make($this->first_image),
             'images' => ImageResource::collection($this->whenLoaded('images')),
         ];
     }

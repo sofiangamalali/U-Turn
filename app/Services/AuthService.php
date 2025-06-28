@@ -46,7 +46,6 @@ class AuthService
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            // المستخدم جديد – نسجله ونفعل الحدث
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,

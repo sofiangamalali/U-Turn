@@ -22,4 +22,13 @@ class Listing extends Model
     {
         return $this->morphTo();
     }
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
+
+    public function getFirstImageAttribute()
+    {
+        return $this->images()->first();
+    }
 }
