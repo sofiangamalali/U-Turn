@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->enum('type', ['text', 'image', 'voice']);
             $table->text('message')->nullable();
             $table->timestamp('read_at')->nullable();
-            $table->timestamp('sent_at');
+            $table->timestamp('sent_at')->nullable();
             $table->timestamps(); 
         });
     }
