@@ -16,7 +16,9 @@ class ChatController extends Controller
 {
     use HasApiResponse;
 
-    public function __construct(protected ChatService $chatService) {}
+    public function __construct(protected ChatService $chatService)
+    {
+    }
 
     public function index(Request $request)
     {
@@ -39,31 +41,33 @@ class ChatController extends Controller
 
     public function streamChats(Request $request)
     {
-     
+
         $this->authenticateViaToken($request);
         return response()->stream(function () {
             $start = microtime(true);
             $timeout = 1.5;
 
             $newChats = app(ChatService::class)->watchAllChatsSimple();
-     
+
 
             if ($newChats->isNotEmpty()) {
                 echo "event: chat\n";
                 echo "data: " . json_encode($newChats) . "\n\n";
-                ob_flush(); flush();
+                ob_flush();
+                flush();
             }
 
             if ((microtime(true) - $start) >= $timeout) {
                 echo "event: close\n";
                 echo "data: {}\n\n";
-                ob_flush(); flush();
+                ob_flush();
+                flush();
             }
 
         }, 200, [
-            'Content-Type'  => 'text/event-stream',
+            'Content-Type' => 'text/event-stream',
             'Cache-Control' => 'no-cache',
-            'Connection'    => 'keep-alive',
+            'Connection' => 'keep-alive',
         ]);
     }
 
@@ -81,19 +85,21 @@ class ChatController extends Controller
             if ($messages->isNotEmpty()) {
                 echo "event: message\n";
                 echo "data: " . $messages->toJson() . "\n\n";
-                ob_flush(); flush();
+                ob_flush();
+                flush();
             }
 
             if ((microtime(true) - $start) >= $timeout) {
                 echo "event: close\n";
                 echo "data: {}\n\n";
-                ob_flush(); flush();
+                ob_flush();
+                flush();
             }
 
         }, 200, [
-            'Content-Type'  => 'text/event-stream',
+            'Content-Type' => 'text/event-stream',
             'Cache-Control' => 'no-cache',
-            'Connection'    => 'keep-alive',
+            'Connection' => 'keep-alive',
         ]);
     }
 
@@ -110,5 +116,17 @@ class ChatController extends Controller
         } else {
             abort(401, 'Unauthorized: Token is required');
         }
+    }
+
+    public function block(Chat $chat)
+    {
+        $this->chatService->blockChat($chat);
+        return $this->success(message: 'Chat blocked successfully');
+    }
+
+    public function unblock(Chat $chat)
+    {
+        $this->chatService->unblockChat($chat);
+        return $this->success(message: 'Chat unblocked successfully');
     }
 }

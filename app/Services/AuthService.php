@@ -39,6 +39,21 @@ class AuthService
             'token' => $user->createToken('api-token')->plainTextToken
         ];
     }
+    public function changePassword($request)
+    {
+        $user = $request->user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            throw new \Exception('Current password is incorrect');
+        }
+
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return ['message' => 'Password changed successfully'];
+    }
+
 
 
     public function socialLogin($request)

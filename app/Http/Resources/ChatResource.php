@@ -18,9 +18,11 @@ class ChatResource extends JsonResource
             'id' => $this->id,
             'unread_counts' => $this->unread_counts,
             'name' => $this->name,
+            'blocked' => (boolean) $this->blocked,
             'last_message' => new MessageResource($this->lastMessage),
             'listing' => ListingResource::make($this->listing),
             'participants' => UserResource::collection($this->participants),
+
         ];
     }
 }

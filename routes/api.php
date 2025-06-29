@@ -31,12 +31,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/user/profile', [UserController::class, 'updateProfile']);
     Route::post('/user/profile/image', [UserController::class, 'updateProfileImage']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/change-password', [AuthController::class, 'changePassword']);
     Route::delete('/user/delete-account', [UserController::class, 'deleteAccount']);
 
     //CHATS
     Route::get('/chats', [ChatController::class, 'index']);
     Route::get('/chats/{chat}', [ChatController::class, 'show']);
+    Route::post('/chats/{chat}/block', [ChatController::class, 'block']);
+    Route::post('/chats/{chat}/unblock', [ChatController::class, 'unblock']);
     Route::post('/chats/messages', [ChatController::class, 'sendMessage']);
+
 
 
 });

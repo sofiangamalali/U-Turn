@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\SocialLoginRequest;
@@ -33,6 +34,12 @@ class AuthController extends Controller
         return $this->success($this->authService->logout(), 'User logged out successfully');
     }
 
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $this->authService->changePassword($request);
+        return $this->success([], 'Password changed successfully');
+    }
 
 
 }

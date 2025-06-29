@@ -53,19 +53,19 @@ class ChatService
                 if (!$chat) {
                     $chat = Chat::create([
                         'listing_id' => $listing->id,
-                        'name'       => $listing->title,
-                        'blocked'    => false,
+                        'name' => $listing->title,
+                        'blocked' => false,
                     ]);
                 }
             }
 
             $message = Message::create([
-                'chat_id'     => $chat->id,
-                'sender_id'   => $user->id,
+                'chat_id' => $chat->id,
+                'sender_id' => $user->id,
                 'receiver_id' => $receiverId,
-                'type'        => $data['type'],
-                'message'     => $data['message'] ?? null,
-                'sent_at'     => now(),
+                'type' => $data['type'],
+                'message' => $data['message'] ?? null,
+                'sent_at' => now(),
             ]);
 
             if ($data['type'] === 'image' && $request->hasFile('image')) {
@@ -106,5 +106,15 @@ class ChatService
             ->where('id', '>', $lastMessageId)
             ->orderBy('id')
             ->get();
+    }
+
+    public function blockChat(Chat $chat): void
+    {
+        $chat->update(['blocked' => true]);
+    }
+
+    public function unblockChat(Chat $chat): void
+    {
+        $chat->update(['blocked' => false]);
     }
 }
