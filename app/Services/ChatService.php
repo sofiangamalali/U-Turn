@@ -13,7 +13,12 @@ class ChatService
     {
         $userId = auth()->id();
         $type = $request->query('type');
-        $query = Chat::query()->with(['listing', 'messages', 'firstMessage', 'lastMessage']);
+
+        $query = Chat::query()
+            ->with(['listing', 'messages', 'firstMessage', 'lastMessage'])
+            ->withCount([
+                'unreadMessages as unread_counts'
+            ]);
 
         if ($type === 'buy') {
             $query->buying($userId);
@@ -34,10 +39,24 @@ class ChatService
 
             if (!empty($data['chat_id'])) {
                 $chat = Chat::findOrFail($data['chat_id']);
-                $receiverId = $chat->firstMessage->receiver_id ?? $chat->listing->user_id;
+
+                $firstMessage = $chat->firstMessage;
+                $receiverId = $firstMessage->sender_id === $user->id
+                    ? $firstMessage->receiver_id
+                    : $firstMessage->sender_id;
+
+                // تأكد إنه مش بيبعت لنفسه
+                if ($receiverId === $user->id) {
+                    throw new \Exception("لا يمكنك إرسال رسالة إلى نفسك.");
+                }
+
             } else {
                 $listing = Listing::findOrFail($data['listing_id']);
                 $receiverId = $listing->user_id;
+
+                if ($receiverId === $user->id) {
+                    throw new \Exception("لا يمكنك بدء محادثة مع إعلانك.");
+                }
 
                 $chat = Chat::where('listing_id', $listing->id)
                     ->whereHas('messages', function ($q) use ($user, $receiverId) {
@@ -84,6 +103,7 @@ class ChatService
     {
         $chat->messages()
             ->where('receiver_id', $user->id)
+            ->where('sender_id', '!=', $user->id)
             ->whereNull('read_at')
             ->update(['read_at' => now()]);
     }

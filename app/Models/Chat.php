@@ -20,17 +20,15 @@ class Chat extends Model
     {
         return $this->hasMany(Message::class);
     }
-
+    public function unreadMessages()
+    {
+        return $this->hasMany(Message::class)
+            ->where('receiver_id', auth()->id())
+            ->whereNull('read_at');
+    }
     public function firstMessage()
     {
         return $this->hasOne(Message::class)->orderBy('sent_at', 'asc');
-    }
-    public function getUnreadCountsAttribute()
-    {
-        return $this->messages()
-            ->where('receiver_id', auth()->id())
-            ->whereNull('read_at')
-            ->count();
     }
 
     public function getParticipantsAttribute()
