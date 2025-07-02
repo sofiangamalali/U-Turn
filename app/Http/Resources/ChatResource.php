@@ -16,7 +16,7 @@ class ChatResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'unread_counts' => $this->unread_counts,
+            'unread_counts' => (int)$this->unread_counts,
             'name' => $this->name,
             'blocked' => (boolean) $this->blocked,
             'last_message' => new MessageResource($this->whenLoaded('lastMessage')),

@@ -16,8 +16,8 @@ class MessageResource extends JsonResource
             'message' => $this->buildMessageContent(),
             'sent_at' => $this->sent_at,
             'read_at' => $this->read_at,
-            'sender_id' =>$this->sender_id,
-            'receiver_id' =>$this->receiver_id,
+            'sender_id' =>(int)$this->sender_id,
+            'receiver_id' =>(int)$this->receiver_id,
         ];
     }
 
