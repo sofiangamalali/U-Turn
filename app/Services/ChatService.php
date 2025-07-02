@@ -42,10 +42,10 @@ class ChatService
             if (!empty($data['chat_id'])) {
                 $chat = Chat::findOrFail($data['chat_id']);
 
-                $firstMessage = $chat->firstMessage;
-                $receiverId = $firstMessage->sender_id === $user->id
-                    ? $firstMessage->receiver_id
-                    : $firstMessage->sender_id;
+                $senderId = $user->id;
+                $participants = $chat->participants;
+
+                $receiverId = $participants->where('id', '!=', $senderId)->first()->id;
 
                 if ($receiverId === $user->id) {
                     throw new \Exception("لا يمكنك إرسال رسالة إلى نفسك.");
