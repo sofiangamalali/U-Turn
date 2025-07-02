@@ -31,9 +31,11 @@ class ChatService
         return $query->get();
     }
 
-    public function sendMessage($request): bool
+    public function sendMessage($request)
     {
-        DB::transaction(function () use ($request) {
+        $chat = null;
+
+        DB::transaction(function () use ($request, &$chat) {
             $user = auth()->user();
             $data = $request->validated();
 
@@ -45,7 +47,6 @@ class ChatService
                     ? $firstMessage->receiver_id
                     : $firstMessage->sender_id;
 
-                // تأكد إنه مش بيبعت لنفسه
                 if ($receiverId === $user->id) {
                     throw new \Exception("لا يمكنك إرسال رسالة إلى نفسك.");
                 }
@@ -94,9 +95,10 @@ class ChatService
             if ($data['type'] === 'voice' && $request->hasFile('voice')) {
                 $message->uploadVoice($request->file('voice'));
             }
+
         });
 
-        return true;
+        return $chat;
     }
 
     public function markMessagesAsRead(Chat $chat, $user): void
