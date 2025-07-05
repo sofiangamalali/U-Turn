@@ -15,6 +15,7 @@ Route::get('/colors', [GeneralController::class, 'colors']);
 Route::get('/steering-sides', [GeneralController::class, 'steeringSides']);
 Route::get('/car-makes', [GeneralController::class, 'carMakes']);
 Route::get('/conditions', [GeneralController::class, 'conditions']);
+Route::get('/body-types', [GeneralController::class, 'bodyTypes']);
 Route::get('/spare-part-categories', [GeneralController::class, 'sparePartCategories']);
 Route::get('/seller/profile/{id}', [UserController::class, 'getSellerProfile']);
 Route::get('/packages', [PackageController::class, 'getAll']);

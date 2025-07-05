@@ -23,6 +23,8 @@ class VehicleResource extends JsonResource
             'doors' => $this->doors,
             'seats' => $this->seating_capacity,
             'steering' => $this->steering_side,
+            'body_type' => $this->body_type,
+            'consumption' => $this->consumption
         ];
     }
 }

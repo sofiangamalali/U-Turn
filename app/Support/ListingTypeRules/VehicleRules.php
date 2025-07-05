@@ -25,6 +25,8 @@ class VehicleRules
             'vehicle.seating_capacity' => 'nullable|integer',
             'vehicle.horsepower' => 'nullable|integer',
             'vehicle.steering_side' => 'required|in:left-hand,right-hand',
+            'vehicle.body_type' => 'nullable|in:sedan,hatchback,suv,coupe,convertible,pickup,van,wagon,crossover,other',
+            'vehicle.consumption' => 'nullable|numeric|min:0|max:99.99',
         ];
     }
 }

@@ -21,6 +21,8 @@ class ListingResource extends JsonResource
             'description' => $this->description,
             'price' => $this->price,
             'location' => $this->location,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
             'type' => $this->type,
             'date' => $this->created_at,
             'user' => UserResource::make($this->whenLoaded('user')),

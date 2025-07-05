@@ -118,4 +118,22 @@ class GeneralController extends Controller
             ],
         ]);
     }
+
+    public function bodyTypes()
+    {
+        return $this->success([
+            'body_types' => [
+                'sedan',
+                'hatchback',
+                'suv',
+                'coupe',
+                'convertible',
+                'pickup',
+                'van',
+                'wagon',
+                'crossover',
+                'other'
+            ],
+        ]);
+    }
 }

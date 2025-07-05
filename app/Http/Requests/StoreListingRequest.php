@@ -17,6 +17,8 @@ class StoreListingRequest extends FormRequest
             'description' => 'required|string',
             'price' => 'required|numeric',
             'location' => 'required|string',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
             'images' => 'required|array|min:1',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], ListingRuleResolver::resolve($this->input('type'), $this->all()));
