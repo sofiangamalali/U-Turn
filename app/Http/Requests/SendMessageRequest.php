@@ -27,7 +27,7 @@ class SendMessageRequest extends FormRequest
             'type' => 'required|in:text,image,voice',
             'message' => 'required_if:type,text|string',
             'image' => 'required_if:type,image|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'voice' => 'required_if:type,voice|file|mimes:mp3,wav|max:2048',
+            'voice' => 'required_if:type,voice|file|mimes:mp3,wav,m4a|max:2048',
         ];
     }
 }
