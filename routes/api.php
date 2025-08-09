@@ -4,6 +4,8 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\Payments\TcoWebhookController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,11 +44,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/chats/{chat}/unblock', [ChatController::class, 'unblock']);
     Route::post('/chats/messages', [ChatController::class, 'sendMessage']);
 
+    //Subscriptions
+    Route::post('/subscriptions/per-ad', [SubscriptionController::class, 'perAd']);
+    Route::post('/subscriptions/subscription', [SubscriptionController::class, 'subscription']);
 
 
 });
-Route::get('/chats/stream', [ChatController::class, 'streamChats']);
-Route::get('/chats/stream/{chat}', [ChatController::class, 'streamChatMessages']);
+Route::post('/webhooks/2co', [TcoWebhookController::class, 'handle']);
+
 
 
 

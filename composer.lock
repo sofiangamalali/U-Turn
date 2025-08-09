@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dfcd8376fbc6717b42f5153e65008c45",
+    "content-hash": "eb241ae4d7420b215cc582a4bfd16927",
     "packages": [
+        {
+            "name": "2checkoutv2/2checkout-php-sdk",
+            "version": "V1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pronabsen/2checkout-php-sdk.git",
+                "reference": "d1f936cd9945ce8572412c53af218812f11c1525"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pronabsen/2checkout-php-sdk/zipball/d1f936cd9945ce8572412c53af218812f11c1525",
+                "reference": "d1f936cd9945ce8572412c53af218812f11c1525",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5 || ^9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tco\\": "src/Tco/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Verifone Connectors Team",
+                    "email": "support@2checkout.com",
+                    "homepage": "https://github.com/2Checkout/2checkout-php-sdk"
+                }
+            ],
+            "description": "2Checkout PHP SDK by Verifone",
+            "homepage": "https://github.com/2Checkout/2checkout-php-sdk",
+            "keywords": [
+                "2checkout",
+                "2co",
+                "gateway",
+                "payment",
+                "verifone"
+            ],
+            "support": {
+                "source": "https://github.com/pronabsen/2checkout-php-sdk/tree/V1"
+            },
+            "time": "2023-10-12T15:04:41+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.12.3",
