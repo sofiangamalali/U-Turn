@@ -50,7 +50,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 });
-Route::get('/webhooks/2co', [TcoWebhookController::class, 'handle']);
+Route::get('/webhooks/2co', function () {
+    return response('OK', 200)->header('Content-Type', 'text/plain');
+});
+Route::post('/webhooks/2co', [TcoWebhookController::class, 'handle']);
 
 
 
