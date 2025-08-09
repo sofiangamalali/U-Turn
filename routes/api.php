@@ -4,7 +4,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\PackageController;
-use App\Http\Controllers\Payments\TcoWebhookController;
+use App\Http\Controllers\TcoWebhookController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
