@@ -34,10 +34,9 @@ class GeneralController extends Controller
         return $this->success(
             [
                 "carousel" => [
-                    "https://www.autoshippers.co.uk/blog/wp-content/uploads/bugatti-centodieci-1024x576.jpg",
-                    "https://www.autoshippers.co.uk/blog/wp-content/uploads/bugatti-centodieci-1024x576.jpg",
-                    "https://www.autoshippers.co.uk/blog/wp-content/uploads/bugatti-centodieci-1024x576.jpg",
-                    "https://www.autoshippers.co.uk/blog/wp-content/uploads/bugatti-centodieci-1024x576.jpg",
+                    asset('carousel/slider-1.jpg'),
+                    asset('carousel/slider-2.jpg'),
+                    asset('carousel/slider-3.jpg'),
                 ],
                 "types" => ListingType::values(),
                 "sections" => $sections
